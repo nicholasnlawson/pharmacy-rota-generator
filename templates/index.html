@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block title %}Home - Pharmacy Rota Generator{% endblock %}
+
+{% block content %}
+<div class="jumbotron">
+    <h1 class="display-4">Pharmacy Rota Generator</h1>
+    <p class="lead">A tool for creating optimal rotas for hospital pharmacy staff.</p>
+    <hr class="my-4">
+    <p>This application helps manage pharmacist schedules, taking into account ward requirements, dispensary shifts, clinic coverage, and individual preferences.</p>
+</div>
+
+<div class="row mt-5">
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title">Manage Pharmacists</h5>
+                <p class="card-text">Add, edit, and delete pharmacist records, including their skills, preferences, and availability.</p>
+                <a href="/pharmacists" class="btn btn-primary">Go to Pharmacists</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title">Generate Rota</h5>
+                <p class="card-text">Create a new weekly rota based on available pharmacists and ward requirements.</p>
+                <a href="/generate_rota" class="btn btn-primary">Generate Rota</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title">View Rota</h5>
+                <p class="card-text">View and export the currently generated pharmacy rota.</p>
+                <a href="/view_rota" class="btn btn-primary">View Rota</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>System Requirements</h5>
+            </div>
+            <div class="card-body">
+                <h6>Daily Operation:</h6>
+                <ul>
+                    <li>Operation Time: 9 am - 5 pm (Monday to Friday)</li>
+                    <li>Lunch Break: 45 mins (dynamic, but usually 12:30 pm - 1:15 pm)</li>
+                    <li>Dispensary Shifts: 2-hour sections (9-11 am, 11-1 pm, 1-3 pm, 3-5 pm)</li>
+                    <li>One pharmacist must be in the dispensary at any time</li>
+                    <li>Each pharmacist should ideally have only one dispensary shift per day unless backfilled</li>
+                </ul>
+                
+                <h6>Ward Areas:</h6>
+                <ul>
+                    <li>EAU: Minimum 1 pharmacist, ideally 2</li>
+                    <li>Surgery: Minimum 1 pharmacist, ideally 2</li>
+                    <li>ITU: Ideally 1 pharmacist (not mandatory, requires training)</li>
+                    <li>Care of the Elderly: Minimum 1 pharmacist, ideally 2</li>
+                    <li>Medicine: Minimum 4 pharmacists, ideally 6</li>
+                </ul>
+                
+                <h6>Warfarin Clinics:</h6>
+                <ul>
+                    <li>PHAR2PSP: Tuesday 1 pm - 3 pm (primary clinic)</li>
+                    <li>Other clinics are covered as needed</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

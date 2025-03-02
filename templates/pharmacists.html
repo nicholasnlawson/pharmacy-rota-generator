@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block title %}Pharmacists - Pharmacy Rota Generator{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>Pharmacists</h1>
+    <a href="/pharmacist/add" class="btn btn-primary">Add New Pharmacist</a>
+</div>
+
+{% if pharmacists %}
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Band</th>
+                    <th>Primary Area</th>
+                    <th>ITU Trained</th>
+                    <th>Warfarin Trained</th>
+                    <th>Default Dispensary</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for pharmacist in pharmacists %}
+                <tr>
+                    <td>{{ pharmacist.name }}</td>
+                    <td>{{ pharmacist.email }}</td>
+                    <td>{{ pharmacist.band.value }}</td>
+                    <td>{{ pharmacist.primary_directorate.value }}</td>
+                    <td>{{ "Yes" if pharmacist.itu_trained else "No" }}</td>
+                    <td>{{ "Yes" if pharmacist.warfarin_trained else "No" }}</td>
+                    <td>{{ "Yes" if pharmacist.default_pharmacist else "No" }}</td>
+                    <td>
+                        <div class="btn-group" role="group">
+                            <a href="/pharmacist/edit/{{ pharmacist.id }}" class="btn btn-sm btn-secondary">Edit</a>
+                            <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{ pharmacist.id }}">Delete</button>
+                        </div>
+                        
+                        <!-- Delete Modal -->
+                        <div class="modal fade" id="deleteModal{{ pharmacist.id }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="deleteModalLabel">Confirm Delete</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Are you sure you want to delete <strong>{{ pharmacist.name }}</strong>?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                        <form action="/pharmacist/delete/{{ pharmacist.id }}" method="post">
+                                            <button type="submit" class="btn btn-danger">Delete</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% else %}
+    <div class="alert alert-info">
+        <p>No pharmacists found. Click "Add New Pharmacist" to add one.</p>
+    </div>
+{% endif %}
+{% endblock %}
