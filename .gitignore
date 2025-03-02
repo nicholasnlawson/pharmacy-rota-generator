@@ -1,0 +1,25 @@
+# Virtual Environment
+venv/
+
+# Python cache files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+dist/
+build/
+*.egg-info/
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+.cache
+
+# Environment variables
+.env
+
+# VS Code settings
+.vscode/
